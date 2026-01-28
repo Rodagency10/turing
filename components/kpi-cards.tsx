@@ -6,7 +6,7 @@ import {
   DollarCircle, 
   Chart21 
 } from "iconsax-reactjs"
-import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import type { KPIs } from "@/types/ads"
 
 interface KPICardsProps {
@@ -36,63 +36,49 @@ export function KPICards({ kpis }: KPICardsProps) {
       title: "Budget dépensé",
       value: formatCurrency(kpis.budgetTotal),
       icon: Wallet3,
-      color: "text-blue-600",
-      bgColor: "bg-blue-50",
     },
     {
       title: "Conversions",
       value: formatNumber(kpis.conversionsTotal),
       icon: ShoppingCart,
-      color: "text-green-600",
-      bgColor: "bg-green-50",
     },
     {
       title: "ROAS moyen",
       value: formatROAS(kpis.roasMoyen),
       icon: TrendUp,
-      color: kpis.roasMoyen >= 1 ? "text-green-600" : "text-red-500",
-      bgColor: kpis.roasMoyen >= 1 ? "bg-green-50" : "bg-red-50",
     },
     {
       title: "Coût par conversion",
       value: formatCurrency(kpis.coutParConversionMoyen),
       icon: DollarCircle,
-      color: "text-orange-600",
-      bgColor: "bg-orange-50",
     },
     {
       title: "Revenu total",
       value: formatCurrency(kpis.revenuTotal),
       icon: MoneyRecive,
-      color: "text-emerald-600",
-      bgColor: "bg-emerald-50",
     },
     {
       title: "Nombre de créas",
       value: formatNumber(kpis.nombreCreas),
       icon: Chart21,
-      color: "text-purple-600",
-      bgColor: "bg-purple-50",
     },
   ]
 
   return (
     <div className="grid grid-cols-1 gap-4 px-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 lg:px-6">
       {cards.map((card) => (
-        <Card key={card.title} className="relative overflow-hidden">
-          <CardHeader className="pb-2">
-            <div className="flex items-center justify-between">
-              <CardDescription className="text-sm font-medium">
-                {card.title}
-              </CardDescription>
-              <div className={`rounded-lg p-2 ${card.bgColor}`}>
-                <card.icon size={20} className={card.color} variant="Bold" />
-              </div>
+        <Card key={card.title} className="border border-purple-100 bg-purple-50/30">
+          <CardContent className="flex items-center gap-4 p-4">
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-purple-100">
+              <card.icon size={22} className="text-purple-600" variant="Bold" />
             </div>
-            <CardTitle className={`text-2xl font-bold tabular-nums ${card.color}`}>
-              {card.value}
-            </CardTitle>
-          </CardHeader>
+            <div className="flex flex-col gap-0.5">
+              <span className="text-sm text-muted-foreground">{card.title}</span>
+              <span className="text-2xl font-bold tabular-nums text-foreground">
+                {card.value}
+              </span>
+            </div>
+          </CardContent>
         </Card>
       ))}
     </div>

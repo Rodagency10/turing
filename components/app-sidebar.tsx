@@ -2,13 +2,14 @@
 
 import * as React from "react"
 import { usePathname } from "next/navigation"
-import { Chart, TableDocument, Eye } from "iconsax-reactjs"
+import { Chart, TableDocument, Eye, User } from "iconsax-reactjs"
 import Link from "next/link"
 
 import {
   Sidebar,
   SidebarContent,
   SidebarHeader,
+  SidebarFooter,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -43,7 +44,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               className="data-[slot=sidebar-menu-button]:!p-1.5"
             >
               <Link href="/dashboard">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-purple-600">
                   <Eye size={18} color="#fff" variant="Bold" />
                 </div>
                 <span className="text-base font-semibold">Turing Analytics</span>
@@ -69,6 +70,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                         <item.icon 
                           size={20} 
                           variant={isActive ? "Bold" : "Linear"} 
+                          className={isActive ? "text-purple-600" : ""}
                         />
                         <span>{item.title}</span>
                       </Link>
@@ -80,6 +82,17 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter>
+        <div className="flex items-center gap-3 rounded-lg border bg-card p-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-purple-100">
+            <User size={20} className="text-purple-600" variant="Bold" />
+          </div>
+          <div className="flex flex-col">
+            <span className="text-sm font-medium">Marie Dupont</span>
+            <span className="text-xs text-muted-foreground">Growth Manager</span>
+          </div>
+        </div>
+      </SidebarFooter>
     </Sidebar>
   )
 }

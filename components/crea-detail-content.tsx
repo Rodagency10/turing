@@ -14,7 +14,7 @@ import {
   User,
   ArrowLeft
 } from "iconsax-reactjs"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import type { AdCreative } from "@/types/ads"
@@ -54,14 +54,14 @@ const getStatutBadgeVariant = (statut: string) => {
 
 export function CreaDetailContent({ ad }: CreaDetailContentProps) {
   const kpiCards = [
-    { title: "Budget dépensé", value: formatCurrency(ad.budgetDepense), icon: Wallet3, color: "text-blue-600", bgColor: "bg-blue-50" },
-    { title: "Conversions", value: formatNumber(ad.conversions), icon: ShoppingCart, color: "text-green-600", bgColor: "bg-green-50" },
-    { title: "ROAS", value: ad.roas.toFixed(2), icon: TrendUp, color: ad.roas >= 1 ? "text-green-600" : "text-red-500", bgColor: ad.roas >= 1 ? "bg-green-50" : "bg-red-50" },
-    { title: "Coût par conversion", value: formatCurrency(ad.coutParConversion), icon: DollarCircle, color: "text-orange-600", bgColor: "bg-orange-50" },
-    { title: "Revenu estimé", value: formatCurrency(ad.revenuEstime), icon: MoneyRecive, color: "text-emerald-600", bgColor: "bg-emerald-50" },
-    { title: "Impressions", value: formatNumber(ad.impressions), icon: EyeIcon, color: "text-purple-600", bgColor: "bg-purple-50" },
-    { title: "Clics", value: formatNumber(ad.clics), icon: MouseCircle, color: "text-indigo-600", bgColor: "bg-indigo-50" },
-    { title: "Taux de clic", value: `${ad.tauxDeClic.toFixed(2)}%`, icon: PercentageCircle, color: "text-cyan-600", bgColor: "bg-cyan-50" },
+    { title: "Budget dépensé", value: formatCurrency(ad.budgetDepense), icon: Wallet3 },
+    { title: "Conversions", value: formatNumber(ad.conversions), icon: ShoppingCart },
+    { title: "ROAS", value: ad.roas.toFixed(2), icon: TrendUp },
+    { title: "Coût par conversion", value: formatCurrency(ad.coutParConversion), icon: DollarCircle },
+    { title: "Revenu estimé", value: formatCurrency(ad.revenuEstime), icon: MoneyRecive },
+    { title: "Impressions", value: formatNumber(ad.impressions), icon: EyeIcon },
+    { title: "Clics", value: formatNumber(ad.clics), icon: MouseCircle },
+    { title: "Taux de clic", value: `${ad.tauxDeClic.toFixed(2)}%`, icon: PercentageCircle },
   ]
 
   const infoItems = [
@@ -102,23 +102,21 @@ export function CreaDetailContent({ ad }: CreaDetailContentProps) {
         </div>
       </div>
 
-      {/* KPI Cards */}
+      {/* KPI Cards - Same style as Overview */}
       <div className="grid grid-cols-1 gap-4 px-4 sm:grid-cols-2 lg:grid-cols-4 lg:px-6">
         {kpiCards.map((card) => (
-          <Card key={card.title} className="relative overflow-hidden">
-            <CardHeader className="pb-2">
-              <div className="flex items-center justify-between">
-                <CardDescription className="text-sm font-medium">
-                  {card.title}
-                </CardDescription>
-                <div className={`rounded-lg p-2 ${card.bgColor}`}>
-                  <card.icon size={18} className={card.color} variant="Bold" />
-                </div>
+          <Card key={card.title} className="border border-purple-100 bg-purple-50/30">
+            <CardContent className="flex items-center gap-4 p-4">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-purple-100">
+                <card.icon size={22} className="text-purple-600" variant="Bold" />
               </div>
-              <CardTitle className={`text-xl font-bold tabular-nums ${card.color}`}>
-                {card.value}
-              </CardTitle>
-            </CardHeader>
+              <div className="flex flex-col gap-0.5">
+                <span className="text-sm text-muted-foreground">{card.title}</span>
+                <span className="text-2xl font-bold tabular-nums text-foreground">
+                  {card.value}
+                </span>
+              </div>
+            </CardContent>
           </Card>
         ))}
       </div>
@@ -161,25 +159,40 @@ export function CreaDetailContent({ ad }: CreaDetailContentProps) {
         </Card>
       </div>
 
-      {/* Additional Stats */}
+      {/* Additional Stats - Same style */}
       <div className="grid grid-cols-1 gap-4 px-4 sm:grid-cols-3 lg:px-6">
-        <Card>
-          <CardHeader className="pb-2">
-            <CardDescription>Personnes touchées</CardDescription>
-            <CardTitle className="text-xl tabular-nums">{formatNumber(ad.personnesTouchees)}</CardTitle>
-          </CardHeader>
+        <Card className="border border-purple-100 bg-purple-50/30">
+          <CardContent className="flex items-center gap-4 p-4">
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-purple-100">
+              <User size={22} className="text-purple-600" variant="Bold" />
+            </div>
+            <div className="flex flex-col gap-0.5">
+              <span className="text-sm text-muted-foreground">Personnes touchées</span>
+              <span className="text-2xl font-bold tabular-nums">{formatNumber(ad.personnesTouchees)}</span>
+            </div>
+          </CardContent>
         </Card>
-        <Card>
-          <CardHeader className="pb-2">
-            <CardDescription>Fréquence</CardDescription>
-            <CardTitle className="text-xl tabular-nums">{ad.frequence.toFixed(2)}</CardTitle>
-          </CardHeader>
+        <Card className="border border-purple-100 bg-purple-50/30">
+          <CardContent className="flex items-center gap-4 p-4">
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-purple-100">
+              <TrendUp size={22} className="text-purple-600" variant="Bold" />
+            </div>
+            <div className="flex flex-col gap-0.5">
+              <span className="text-sm text-muted-foreground">Fréquence</span>
+              <span className="text-2xl font-bold tabular-nums">{ad.frequence.toFixed(2)}</span>
+            </div>
+          </CardContent>
         </Card>
-        <Card>
-          <CardHeader className="pb-2">
-            <CardDescription>CPM</CardDescription>
-            <CardTitle className="text-xl tabular-nums">{formatCurrency(ad.cpm)}</CardTitle>
-          </CardHeader>
+        <Card className="border border-purple-100 bg-purple-50/30">
+          <CardContent className="flex items-center gap-4 p-4">
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-purple-100">
+              <DollarCircle size={22} className="text-purple-600" variant="Bold" />
+            </div>
+            <div className="flex flex-col gap-0.5">
+              <span className="text-sm text-muted-foreground">CPM</span>
+              <span className="text-2xl font-bold tabular-nums">{formatCurrency(ad.cpm)}</span>
+            </div>
+          </CardContent>
         </Card>
       </div>
     </div>
